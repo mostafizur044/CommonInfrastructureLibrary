@@ -1,1 +1,1 @@
-# learningDotNet
+# learning DotNet Core
