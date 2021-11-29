@@ -6,15 +6,15 @@ namespace Infrastructure
 {
     public static class ServiceExtentions
     {
-        public static void AddCommandQueryHandlers(this IServiceCollection services, Type handlerInterface)
+        public static void AddCommandQueryHandlers(this IServiceCollection services, Type handlerInterface, Type handlerType)
         {
-            var handlers = typeof(ServiceExtentions).Assembly.GetTypes()
+            var handlers = handlerType.Assembly.GetTypes()
                 .Where(t => t.GetInterfaces().Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == handlerInterface)
             );
 
             foreach (var handler in handlers)
             {
-                services.AddScoped(handler.GetInterfaces().First(i => i.IsGenericType && i.GetGenericTypeDefinition() == handlerInterface), handler);
+                services.AddSingleton(handler.GetInterfaces().First(i => i.IsGenericType && i.GetGenericTypeDefinition() == handlerInterface), handler);
             }
         }
 

@@ -10,7 +10,17 @@
       "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
       "DisplayName": "Miscellaneous Files",
       "ColorIndex": -1
+    },
+    "6cfa31d2-4763-466a-8222-fadd6312aa12": {
+      "ProjectGuid": "6cfa31d2-4763-466a-8222-fadd6312aa12",
+      "DisplayName": "Infrastructure",
+      "ColorIndex": 1
+    },
+    "9e7703dd-ff55-4674-9b98-a36dcedd69c6": {
+      "ProjectGuid": "9e7703dd-ff55-4674-9b98-a36dcedd69c6",
+      "DisplayName": "Services",
+      "ColorIndex": 2
     }
   },
-  "NextColorIndex": 1
+  "NextColorIndex": 3
 }

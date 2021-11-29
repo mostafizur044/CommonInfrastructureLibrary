@@ -7,5 +7,6 @@ namespace Infrastructure
     {
         IMongoDatabase GetDatabase();
         IQueryable<T> GetQueryableCollection<T>();
+        IMongoCollection<T> GetCollection<T>();
     }
 }

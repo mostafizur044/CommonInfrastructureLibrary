@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Services.CommandHandler;
+using Services.Uitility;
 
 namespace DotNetCoreWebApi
 {
@@ -20,9 +22,10 @@ namespace DotNetCoreWebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddCommandQueryHandlers(typeof(ICommandHandler <,>));
-            services.AddCommandQueryHandlers(typeof(IQueryHandler<,>));
+            services.AddCommandQueryHandlers(typeof(ICommandHandler <,>), typeof(CreateProductCommandHandler));
+            //services.AddCommandQueryHandlers(typeof(IQueryHandler<,>));
             services.ConfigureServices();
+            services.ConfigueProductServices();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,7 +44,7 @@ namespace DotNetCoreWebApi
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapControllerRoute("Default", $"api/{Configuration["ServiceName"]}" + "/{controller}/{action}/{id?}");
             });
         }
     }

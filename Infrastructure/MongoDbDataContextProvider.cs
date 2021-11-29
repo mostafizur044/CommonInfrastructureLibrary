@@ -21,5 +21,10 @@ namespace Infrastructure
         {
             return _database.GetCollection<T>($"{typeof(T).Name}s").AsQueryable();
         }
+
+        public IMongoCollection<T> GetCollection<T>()
+        {
+            return _database.GetCollection<T>($"{typeof(T).Name}s");
+        }
     }
 }
