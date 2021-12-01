@@ -4,24 +4,25 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Services.Command;
 using Services.DTO;
-using Services.Entity;
 using Services.Repository;
 using Services.Validator;
 using System;
+using System.Collections.Generic;
 using System.Reflection;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Services.CommandHandler
 {
-    public class CreateProductCommandHandler : ICommandHandler<CreateProductCommand, CommonResponse>
+    public class DeleteProductCommandHandler : ICommandHandler<DeleteProductCommand, CommonResponse>
     {
-        private readonly ILogger<CreateProductCommandHandler> _logger;
-        private readonly CreateProductValidator _validator;
+        private readonly ILogger<DeleteProductCommandHandler> _logger;
+        private readonly DeleteProductValidator _validator;
         private readonly IRepository _repository;
 
-        public CreateProductCommandHandler(
-            ILogger<CreateProductCommandHandler> logger,
-            CreateProductValidator validator,
+        public DeleteProductCommandHandler(
+            ILogger<DeleteProductCommandHandler> logger,
+            DeleteProductValidator validator,
             IRepository repository
         )
         {
@@ -29,7 +30,7 @@ namespace Services.CommandHandler
             _validator = validator;
             _repository = repository;
         }
-        public async Task<CommonResponse> HandleAsync(CreateProductCommand command)
+        public async Task<CommonResponse> HandleAsync(DeleteProductCommand command)
         {
             _logger.LogInformation($"{MethodBase.GetCurrentMethod().DeclaringType.FullName} - {MethodBase.GetCurrentMethod().Name} - Time {DateTime.Now} for command - {JsonConvert.SerializeObject(command)}");
 
@@ -44,23 +45,13 @@ namespace Services.CommandHandler
                 };
             }
 
-            var product = new Product
-            {
-                Id = command.Id,
-                Name = command.Name,
-                Description = command.Description,
-                SKU = command.SKU,
-                ImageUrl = command.ImageUrl,
-                CreateDate = DateTime.Now,
-                UpdateDate = DateTime.Now
-            };
-
-            var result = await _repository.CreateProduct(product);
+            var result = await _repository.DeleteProduct(command.Id);
 
             return new CommonResponse
             {
                 Succeeded = result
             };
+
 
         }
     }

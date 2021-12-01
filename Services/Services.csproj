@@ -10,7 +10,6 @@
 
   <ItemGroup>
     <Folder Include="DomainService\" />
-    <Folder Include="QueryHandler\" />
   </ItemGroup>
 
   <ItemGroup>

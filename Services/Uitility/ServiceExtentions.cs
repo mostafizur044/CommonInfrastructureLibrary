@@ -8,8 +8,10 @@ namespace Services.Uitility
     {
         public static void ConfigueProductServices(this IServiceCollection services)
         {
-            services.AddSingleton<CreateProductValidator>();
             services.AddSingleton<IRepository, ProductRepository>();
+
+            services.AddSingleton<CreateProductValidator>();
+            services.AddSingleton<DeleteProductValidator>();
         }
     }
 }

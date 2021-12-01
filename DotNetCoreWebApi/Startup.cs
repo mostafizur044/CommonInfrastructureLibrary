@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Services.CommandHandler;
+using Services.QueryHandler;
 using Services.Uitility;
 
 namespace DotNetCoreWebApi
@@ -23,7 +24,7 @@ namespace DotNetCoreWebApi
         {
             services.AddControllers();
             services.AddCommandQueryHandlers(typeof(ICommandHandler <,>), typeof(CreateProductCommandHandler));
-            //services.AddCommandQueryHandlers(typeof(IQueryHandler<,>));
+            services.AddCommandQueryHandlers(typeof(IQueryHandler<,>), typeof(GetProductsQueryHandler));
             services.ConfigureServices();
             services.ConfigueProductServices();
         }

@@ -15,17 +15,17 @@ namespace DotNetCoreWebApi.Controllers
     {
         private readonly ILogger<ProductController> _logger;
         private readonly CommandHandler _commandHandler;
-        //private readonly QueryHandler _queryHandler;
+        private readonly QueryHandler _queryHandler;
 
         public ProductController(
             ILogger<ProductController> logger,
-            CommandHandler commandHandler
-            //QueryHandler queryHandler
+            CommandHandler commandHandler,
+            QueryHandler queryHandler
         )
         {
             _logger = logger;
             _commandHandler = commandHandler;
-            //_queryHandler = queryHandler;
+            _queryHandler = queryHandler;
         }
 
         [HttpPost]
@@ -40,32 +40,32 @@ namespace DotNetCoreWebApi.Controllers
             return BadRequest(result);
         }
 
-        //[HttpGet]
-        //public async Task<IActionResult> GetProductsByQuery([FromQuery] GetProductsQuery query)
-        //{
-        //    _logger.LogInformation($"{MethodBase.GetCurrentMethod().DeclaringType.FullName} - {MethodBase.GetCurrentMethod().Name} - Time {DateTime.Now} for command - {JsonConvert.SerializeObject(query)}");
+        [HttpGet]
+        public async Task<IActionResult> GetProductsByQuery([FromQuery] GetProductsQuery query)
+        {
+            _logger.LogInformation($"{MethodBase.GetCurrentMethod().DeclaringType.FullName} - {MethodBase.GetCurrentMethod().Name} - Time {DateTime.Now} for command - {JsonConvert.SerializeObject(query)}");
 
-        //    var result = await _queryHandler.SubmitAsync<GetProductsQuery, GetProductsResponse>(query);
-        //    if (result.Succeeded)
-        //    {
-        //        return Ok(result);
-        //    }
-        //    return BadRequest(result);
-        //}
+            var result = await _queryHandler.SubmitAsync<GetProductsQuery, GetProductsResponse>(query);
+            if (result.Succeeded)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
 
-        //[HttpGet]
-        //public async Task<IActionResult> GetProduct([FromRoute] GetProductQuery query)
-        //{
-        //    _logger.LogInformation($"{MethodBase.GetCurrentMethod().DeclaringType.FullName} - {MethodBase.GetCurrentMethod().Name} - Time {DateTime.Now} for command - {JsonConvert.SerializeObject(query)}");
+        [HttpGet]
+        public async Task<IActionResult> GetProduct([FromRoute] GetProductQuery query)
+        {
+            _logger.LogInformation($"{MethodBase.GetCurrentMethod().DeclaringType.FullName} - {MethodBase.GetCurrentMethod().Name} - Time {DateTime.Now} for command - {JsonConvert.SerializeObject(query)}");
 
-        //    var result = await _queryHandler.SubmitAsync<GetProductQuery, GetProductResponse>(query);
+            var result = await _queryHandler.SubmitAsync<GetProductQuery, GetProductResponse>(query);
 
-        //    if (result.Succeeded)
-        //    {
-        //        return Ok(result);
-        //    }
-        //    return NotFound(result);
-        //}
+            if (result.Succeeded)
+            {
+                return Ok(result);
+            }
+            return NotFound(result);
+        }
 
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateProductCommand command)
