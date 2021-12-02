@@ -1,4 +1,5 @@
 using Infrastructure;
+using Infrastructure.ExceptionMiddleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -23,7 +24,7 @@ namespace DotNetCoreWebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddCommandQueryHandlers(typeof(ICommandHandler <,>), typeof(CreateProductCommandHandler));
+            services.AddCommandQueryHandlers(typeof(ICommandHandler<,>), typeof(CreateProductCommandHandler));
             services.AddCommandQueryHandlers(typeof(IQueryHandler<,>), typeof(GetProductsQueryHandler));
             services.ConfigureServices();
             services.ConfigueProductServices();
@@ -38,6 +39,10 @@ namespace DotNetCoreWebApi
             }
 
             //app.UseHttpsRedirection();
+
+            //app.ConfigureExtentionExceptionHandler(logger);
+
+            app.ConfigureExceptionMiddleware();
 
             app.UseRouting();
 
